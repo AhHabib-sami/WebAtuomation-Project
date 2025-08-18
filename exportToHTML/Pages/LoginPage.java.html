@@ -1,0 +1,135 @@
+<html>
+<head>
+<title>LoginPage.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cf8e6d;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+.s3 { color: #6aab73;}
+.s4 { color: #2aacb8;}
+.s5 { color: #7a7e85;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+LoginPage.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">Pages</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">org</span><span class="s2">.</span><span class="s1">testng</span><span class="s2">.</span><span class="s1">Assert</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">org</span><span class="s2">.</span><span class="s1">checkerframework</span><span class="s2">.</span><span class="s1">checker</span><span class="s2">.</span><span class="s1">index</span><span class="s2">.</span><span class="s1">qual</span><span class="s2">.</span><span class="s1">PolyUpperBound</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">org</span><span class="s2">.</span><span class="s1">openqa</span><span class="s2">.</span><span class="s1">selenium</span><span class="s2">.*;</span>
+<span class="s0">import </span><span class="s1">org</span><span class="s2">.</span><span class="s1">openqa</span><span class="s2">.</span><span class="s1">selenium</span><span class="s2">.</span><span class="s1">support</span><span class="s2">.</span><span class="s1">ui</span><span class="s2">.</span><span class="s1">ExpectedCondition</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">org</span><span class="s2">.</span><span class="s1">openqa</span><span class="s2">.</span><span class="s1">selenium</span><span class="s2">.</span><span class="s1">support</span><span class="s2">.</span><span class="s1">ui</span><span class="s2">.</span><span class="s1">ExpectedConditions</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">org</span><span class="s2">.</span><span class="s1">openqa</span><span class="s2">.</span><span class="s1">selenium</span><span class="s2">.</span><span class="s1">support</span><span class="s2">.</span><span class="s1">ui</span><span class="s2">.</span><span class="s1">WebDriverWait</span><span class="s2">;</span>
+
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">time</span><span class="s2">.</span><span class="s1">Duration</span><span class="s2">;</span>
+
+<span class="s0">public class </span><span class="s1">LoginPage </span><span class="s0">extends </span><span class="s1">BasePage</span><span class="s2">{</span>
+
+    <span class="s0">public </span><span class="s1">LoginPage</span><span class="s2">(</span><span class="s1">WebDriver driver</span><span class="s2">){</span>
+        <span class="s0">super</span><span class="s2">(</span><span class="s1">driver</span><span class="s2">);</span>
+    <span class="s2">}</span>
+
+
+    <span class="s0">private </span><span class="s1">By emailIdField </span><span class="s2">= </span><span class="s1">By</span><span class="s2">.</span><span class="s1">xpath</span><span class="s2">(</span><span class="s3">&quot;//input[@placeholder='Email or phone']&quot;</span><span class="s2">);</span>
+    <span class="s0">public </span><span class="s1">By NextButton </span><span class="s2">= </span><span class="s1">By</span><span class="s2">.</span><span class="s1">xpath</span><span class="s2">(</span><span class="s3">&quot;//button[@id='js--btn-next']&quot;</span><span class="s2">);</span>
+    <span class="s0">public </span><span class="s1">By LoginButton </span><span class="s2">= </span><span class="s1">By</span><span class="s2">.</span><span class="s1">xpath</span><span class="s2">(</span><span class="s3">&quot;//form[@id='otp-login-form']//button[@type='submit'][normalize-space()='Login']&quot;</span><span class="s2">);</span>
+    <span class="s0">public </span><span class="s1">By secondModal </span><span class="s2">= </span><span class="s1">By</span><span class="s2">.</span><span class="s1">xpath</span><span class="s2">(</span><span class="s3">&quot;//div[contains(@class, 'modal_overlay')]/descendant::button[contains(@class, 'rounded-full')]&quot;</span><span class="s2">);</span>
+    <span class="s0">public </span><span class="s1">By googleButton </span><span class="s2">= </span><span class="s1">By</span><span class="s2">.</span><span class="s1">xpath</span><span class="s2">(</span><span class="s3">&quot;//button[normalize-space()='Google']&quot;</span><span class="s2">);</span>
+    <span class="s0">public </span><span class="s1">By ResendButton </span><span class="s2">= </span><span class="s1">By</span><span class="s2">.</span><span class="s1">xpath</span><span class="s2">(</span><span class="s3">&quot;//button[@id='resend-otp']&quot;</span><span class="s2">);</span>
+    <span class="s0">public </span><span class="s1">By PopUpMessage </span><span class="s2">= </span><span class="s1">By</span><span class="s2">. </span><span class="s1">xpath</span><span class="s2">(</span><span class="s3">&quot;//div[@id='js--message']&quot;</span><span class="s2">);</span>
+
+    <span class="s0">public void </span><span class="s1">enterEmail</span><span class="s2">(</span><span class="s1">String email</span><span class="s2">){</span>
+        <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s3">&quot;Typing email: &quot; </span><span class="s2">+ </span><span class="s1">email</span><span class="s2">);</span>
+        <span class="s1">type</span><span class="s2">(</span><span class="s1">emailIdField</span><span class="s2">, </span><span class="s1">email</span><span class="s2">);</span>
+    <span class="s2">}</span>
+
+
+    <span class="s0">public void </span><span class="s1">clickNextButton</span><span class="s2">(){</span>
+        <span class="s1">click</span><span class="s2">(</span><span class="s1">NextButton</span><span class="s2">);</span>
+    <span class="s2">}</span>
+
+
+    <span class="s0">public void </span><span class="s1">clickLoginButton</span><span class="s2">(){</span>
+        <span class="s1">click</span><span class="s2">(</span><span class="s1">LoginButton</span><span class="s2">);</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public void </span><span class="s1">clickSecondModal</span><span class="s2">()</span>
+    <span class="s2">{</span>
+       <span class="s1">click</span><span class="s2">(</span><span class="s1">secondModal</span><span class="s2">);</span>
+    <span class="s2">}</span>
+    <span class="s0">public void </span><span class="s1">ClickGoogleButton</span><span class="s2">()</span>
+    <span class="s2">{</span>
+        <span class="s1">click</span><span class="s2">(</span><span class="s1">googleButton</span><span class="s2">);</span>
+    <span class="s2">}</span>
+    <span class="s0">public void </span><span class="s1">ClickResendButton</span><span class="s2">()</span>
+    <span class="s2">{</span>
+        <span class="s1">click</span><span class="s2">(</span><span class="s1">ResendButton</span><span class="s2">);</span>
+    <span class="s2">}</span>
+
+
+    <span class="s0">public boolean </span><span class="s1">submitOTPWithValidation</span><span class="s2">() {</span>
+        <span class="s0">try </span><span class="s2">{</span>
+            <span class="s1">WebDriverWait wait </span><span class="s2">= </span><span class="s0">new </span><span class="s1">WebDriverWait</span><span class="s2">(</span><span class="s1">driver</span><span class="s2">, </span><span class="s1">Duration</span><span class="s2">.</span><span class="s1">ofSeconds</span><span class="s2">(</span><span class="s4">60</span><span class="s2">));</span>
+
+            <span class="s1">By otpInputLocator </span><span class="s2">= </span><span class="s1">By</span><span class="s2">.</span><span class="s1">xpath</span><span class="s2">(</span><span class="s3">&quot;//input[@placeholder='OTP']&quot;</span><span class="s2">);</span>
+            <span class="s1">By resendBtnLocator </span><span class="s2">= </span><span class="s1">By</span><span class="s2">.</span><span class="s1">xpath</span><span class="s2">(</span><span class="s3">&quot;//button[@id='resend-otp']&quot;</span><span class="s2">);</span>
+            <span class="s1">By loginBtnLocator </span><span class="s2">= </span><span class="s1">By</span><span class="s2">.</span><span class="s1">xpath</span><span class="s2">(</span><span class="s3">&quot;//form[@id='otp-login-form']//button[@type='submit'][normalize-space()='Login']&quot;</span><span class="s2">);</span>
+
+            <span class="s5">// Wait for OTP input visible initially</span>
+            <span class="s1">wait</span><span class="s2">.</span><span class="s1">until</span><span class="s2">(</span><span class="s1">ExpectedConditions</span><span class="s2">.</span><span class="s1">visibilityOfElementLocated</span><span class="s2">(</span><span class="s1">otpInputLocator</span><span class="s2">));</span>
+
+            <span class="s0">boolean </span><span class="s1">otpFilled </span><span class="s2">= </span><span class="s0">false</span><span class="s2">;</span>
+            <span class="s0">long </span><span class="s1">endTime </span><span class="s2">= </span><span class="s1">System</span><span class="s2">.</span><span class="s1">currentTimeMillis</span><span class="s2">() + </span><span class="s4">60000</span><span class="s2">; </span><span class="s5">// 60 seconds timeout</span>
+
+            <span class="s0">while </span><span class="s2">(</span><span class="s1">System</span><span class="s2">.</span><span class="s1">currentTimeMillis</span><span class="s2">() &lt; </span><span class="s1">endTime</span><span class="s2">) {</span>
+                <span class="s0">try </span><span class="s2">{</span>
+                    <span class="s1">WebElement otpInput </span><span class="s2">= </span><span class="s1">driver</span><span class="s2">.</span><span class="s1">findElement</span><span class="s2">(</span><span class="s1">otpInputLocator</span><span class="s2">);</span>
+                    <span class="s1">String value </span><span class="s2">= </span><span class="s1">otpInput</span><span class="s2">.</span><span class="s1">getAttribute</span><span class="s2">(</span><span class="s3">&quot;value&quot;</span><span class="s2">);</span>
+                    <span class="s0">if </span><span class="s2">(</span><span class="s1">value </span><span class="s2">!= </span><span class="s0">null </span><span class="s2">&amp;&amp; </span><span class="s1">value</span><span class="s2">.</span><span class="s1">matches</span><span class="s2">(</span><span class="s3">&quot;^</span><span class="s0">\\</span><span class="s3">d{4}$&quot;</span><span class="s2">)) {</span>
+                        <span class="s1">otpFilled </span><span class="s2">= </span><span class="s0">true</span><span class="s2">;</span>
+                        <span class="s0">break</span><span class="s2">;</span>
+                    <span class="s2">}</span>
+                <span class="s2">} </span><span class="s0">catch </span><span class="s2">(</span><span class="s1">StaleElementReferenceException </span><span class="s2">| </span><span class="s1">NoSuchElementException e</span><span class="s2">) {</span>
+                    <span class="s5">// Element disappeared, retry in next iteration</span>
+                <span class="s2">}</span>
+
+                <span class="s1">Thread</span><span class="s2">.</span><span class="s1">sleep</span><span class="s2">(</span><span class="s4">500</span><span class="s2">);</span>
+            <span class="s2">}</span>
+
+            <span class="s0">if </span><span class="s2">(</span><span class="s1">otpFilled</span><span class="s2">) {</span>
+                <span class="s1">WebElement loginBtn </span><span class="s2">= </span><span class="s1">wait</span><span class="s2">.</span><span class="s1">until</span><span class="s2">(</span><span class="s1">ExpectedConditions</span><span class="s2">.</span><span class="s1">elementToBeClickable</span><span class="s2">(</span><span class="s1">loginBtnLocator</span><span class="s2">));</span>
+                <span class="s1">loginBtn</span><span class="s2">.</span><span class="s1">click</span><span class="s2">();</span>
+                <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s3">&quot;Login submitted with valid OTP.&quot;</span><span class="s2">);</span>
+            <span class="s2">} </span><span class="s0">else </span><span class="s2">{</span>
+                <span class="s1">WebElement resendBtn </span><span class="s2">= </span><span class="s1">wait</span><span class="s2">.</span><span class="s1">until</span><span class="s2">(</span><span class="s1">ExpectedConditions</span><span class="s2">.</span><span class="s1">elementToBeClickable</span><span class="s2">(</span><span class="s1">resendBtnLocator</span><span class="s2">));</span>
+                <span class="s1">resendBtn</span><span class="s2">.</span><span class="s1">click</span><span class="s2">();</span>
+                <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s3">&quot;OTP not provided in time. Resend clicked.&quot;</span><span class="s2">);</span>
+            <span class="s2">}</span>
+
+            <span class="s0">return true</span><span class="s2">;</span>
+
+        <span class="s2">} </span><span class="s0">catch </span><span class="s2">(</span><span class="s1">Exception e</span><span class="s2">) {</span>
+            <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s3">&quot;Exception during OTP processing: &quot; </span><span class="s2">+ </span><span class="s1">e</span><span class="s2">.</span><span class="s1">getMessage</span><span class="s2">());</span>
+            <span class="s0">return false</span><span class="s2">;</span>
+        <span class="s2">}</span>
+    <span class="s2">}</span>
+
+
+
+
+
+
+
+<span class="s2">}</span>
+
+
+
+
+
+</pre>
+</body>
+</html>
